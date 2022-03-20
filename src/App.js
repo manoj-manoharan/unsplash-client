@@ -13,7 +13,7 @@ const useScrollPosition = () => {
 
     let documentHeight = document.body.scrollHeight;
     let currentScroll = window.scrollY + window.innerHeight;
-    let modifier = 500;
+    let modifier = 1000;
 
     if (currentScroll + modifier > documentHeight) {
       console.log('You are at the bottom!')
