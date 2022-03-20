@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Card from './components/Card';
 import ImageCard from './components/ImageCard';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
+import Masonry from './components/Masonary';
+import ResponsiveMasonry from './components/ResponsiveMasonry';
 
 const useScrollPosition = () => {
 
