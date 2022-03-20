@@ -12,12 +12,12 @@ const useScrollPosition = () => {
 
     let documentHeight = document.body.scrollHeight;
     let currentScroll = window.scrollY + window.innerHeight;
-    let modifier = 500; 
+    let modifier = 500;
 
-    if(currentScroll + modifier > documentHeight) {
+    if (currentScroll + modifier > documentHeight) {
       console.log('You are at the bottom!')
-        setScrollPosition("bottom");
-        return;
+      setScrollPosition("bottom");
+      return;
     }
 
     setScrollPosition("not_bottom");
@@ -76,7 +76,7 @@ function App() {
   const [searchText, setSearchText] = useState("");
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
-  const scrollPosition  = useScrollPosition();
+  const scrollPosition = useScrollPosition();
 
 
   const handleSearch = (event) => {
@@ -93,8 +93,8 @@ function App() {
 
   }, [page, searchText, setImages]);
 
-  useEffect(()=>{
-    if(scrollPosition === "bottom"){
+  useEffect(() => {
+    if (scrollPosition === "bottom") {
       showMoreImages();
     }
   }, [scrollPosition])
@@ -110,9 +110,7 @@ function App() {
   return (
     <div className="main">
 
-      <div className='search'>
-        <input className='search-box' placeholder='Search' onKeyUp={handleSearch} />
-      </div>
+      <input className='search-box' placeholder='Search' onKeyUp={handleSearch} />
 
       <div className="image-list">
 
