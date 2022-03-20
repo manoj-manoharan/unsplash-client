@@ -25,7 +25,6 @@ class Masonry extends React.Component {
           flexDirection: "column",
           justifyContent: "flex-start",
           alignContent: "stretch",
-          flex: 1,
           gap: gutter,
         }}
       >
