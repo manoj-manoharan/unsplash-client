@@ -4,17 +4,14 @@
   padding: 0;
 }
 
-html {
-  height: 100%;
-  width: 100%;
-}
-
-body {
-  height: 100%;
-  width: 100%;
-}
-
 .main {
   display: flex;
   flex-direction: column;
 }
+
+.main > input {
+  padding: 0.2rem;
+  line-height: 2rem;
+  font-size: medium
+}
+
