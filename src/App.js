@@ -74,6 +74,7 @@ function App() {
   }
 
 
+  
   const [searchText, setSearchText] = useState("");
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
