@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import './App.css';
 import Card from './components/Card';
 import ImageCard from './components/ImageCard';
@@ -7,133 +7,136 @@ import ResponsiveMasonry from './components/ResponsiveMasonry';
 
 const useScrollPosition = () => {
 
-  let [scrollPosition, setScrollPosition] = useState('');
+    let [scrollPosition, setScrollPosition] = useState('');
 
-  const onScroll = () => {
+    const onScroll = () => {
 
-    let documentHeight = document.body.scrollHeight;
-    let currentScroll = window.scrollY + window.innerHeight;
-    let modifier = 1000;
+        let documentHeight = document.body.scrollHeight;
+        let currentScroll = window.scrollY + window.innerHeight;
+        let modifier = 1000;
 
-    if (currentScroll + modifier > documentHeight) {
-      console.log('You are at the bottom!')
-      setScrollPosition("bottom");
-      return;
+        if (currentScroll + modifier > documentHeight) {
+            console.log('You are at the bottom!')
+            setScrollPosition("bottom");
+            return;
+        }
+
+        setScrollPosition("not_bottom");
     }
 
-    setScrollPosition("not_bottom");
-  }
+    useEffect(() => {
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [])
 
-  useEffect(() => {
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [])
-
-  return scrollPosition;
+    return scrollPosition;
 
 }
 
 function App() {
 
-  const authUri = "client_id=eXZJk7ov2lWxpiKvfH3e90W85ycxZCtdTh54ahJsJro";
+    const authUri = "client_id=eXZJk7ov2lWxpiKvfH3e90W85ycxZCtdTh54ahJsJro";
 
-  const perPage = 20;
-  const listBaseUrl = `https://api.unsplash.com/photos?${authUri}&per_page=${perPage}`;
-  const searchBaseUrl = `https://api.unsplash.com/search/photos?${authUri}&per_page=${perPage}`;
+    const perPage = 20;
+    const listBaseUrl = `https://api.unsplash.com/photos?${authUri}&per_page=${perPage}`;
+    const searchBaseUrl = `https://api.unsplash.com/search/photos?${authUri}&per_page=${perPage}`;
 
-  const buildApiUrl = () => {
+    const buildApiUrl = () => {
 
-    let url = listBaseUrl;
+        let url = listBaseUrl;
 
-    if (searchText.length > 0) {
-      url = `${searchBaseUrl}&query=${searchText}`;
+        if (searchText.length > 0) {
+            url = `${searchBaseUrl}&query=${searchText}`;
+        }
+
+        return url;
     }
 
-    return url;
-  }
+    const fetchAndSetImages = async () => {
 
-  const fetchAndSetImages = async () => {
+        const response = await fetch(`${buildApiUrl()}&page=${page}`);
 
-    const response = await fetch(`${buildApiUrl()}&page=${page}`);
+        const imageList = await response.json();
 
-    const imageList = await response.json();
+        let images = [];
 
-    let images = [];
+        if (imageList.length > 0) {
+            images = imageList;
+        } else if (imageList && imageList.results && imageList.results.length > 0) {
+            images = imageList.results;
+        }
 
-    if (imageList.length > 0) {
-      images = imageList;
-    } else if (imageList && imageList.results && imageList.results.length > 0) {
-      images = imageList.results;
+        if (images.length > 0) {
+            setImages(prev => {
+                return [...prev, ...images];
+            })
+        }
     }
 
-    if (images.length > 0) {
-      setImages(prev => {
-        return [...prev, ...images];
-      })
+
+    const [searchText, setSearchText] = useState("");
+    const [images, setImages] = useState([]);
+    const [page, setPage] = useState(1);
+    const scrollPosition = useScrollPosition();
+
+
+    const handleSearch = (event) => {
+        if (event.key === 'Enter') {
+            setImages([]);
+            setSearchText(event.target.value);
+            setPage(1);
+        }
     }
-  }
 
+    useEffect(() => {
 
-  
-  const [searchText, setSearchText] = useState("");
-  const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const scrollPosition = useScrollPosition();
+        fetchAndSetImages();
 
+    }, [page, searchText, setImages]);
 
-  const handleSearch = (event) => {
-    if (event.key === 'Enter') {
-      setImages([]);
-      setSearchText(event.target.value);
-      setPage(1);
+    useEffect(() => {
+        if (scrollPosition === "bottom") {
+            showMoreImages();
+        }
+    }, [scrollPosition])
+
+    const showMoreImages = () => {
+        setPage(prev => {
+            console.log(prev);
+            return prev + 1;
+        })
     }
-  }
-
-  useEffect(() => {
-
-    fetchAndSetImages();
-
-  }, [page, searchText, setImages]);
-
-  useEffect(() => {
-    if (scrollPosition === "bottom") {
-      showMoreImages();
-    }
-  }, [scrollPosition])
-
-  const showMoreImages = () => {
-    setPage(prev => {
-      console.log(prev);
-      return prev + 1;
-    })
-  }
 
 
-  return (
-    <div className="main">
+    return (
+        <div className="main">
 
-      <input className='search-box' placeholder='Search' onKeyUp={handleSearch} />
+            <input className='search-box' placeholder='Search' onKeyUp={handleSearch}/>
 
-      <div className="image-list">
+            <div className="image-list">
 
-        <ResponsiveMasonry >
-          <Masonry>
-            {
-              images.map((image, index) => {
-                return (
-                  <ImageCard key={image.id} image={image} />
-                );
-              })
-            }
-          </Masonry>
-        </ResponsiveMasonry>
+                <ResponsiveMasonry columnsCountBreakPoints={{
+                    400: 1,
+                    800: 2,
+                    1200: 3
+                }}>
+                    <Masonry>
+                        {
+                            images.map((image, index) => {
+                                return (
+                                    <ImageCard key={image.id} image={image}/>
+                                );
+                            })
+                        }
+                    </Masonry>
+                </ResponsiveMasonry>
 
 
-      </div>
+            </div>
 
-      <button className='button' onClick={showMoreImages}>Show more</button>
-    </div>
-  );
+            <button className='button' onClick={showMoreImages}>Show more</button>
+        </div>
+    );
 
 }
 
