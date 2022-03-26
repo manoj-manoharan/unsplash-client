@@ -1,5 +1,5 @@
 :root {
-    --min-max-viewport-width : 100vw;
+    --min-max-viewport-width: 99.9vw;
 }
 
 * {
@@ -19,13 +19,13 @@
     padding: 0.2rem;
     line-height: 2rem;
     font-size: medium;
-    min-width: 100vw;
-    max-width: 100vw;
+    min-width: var(--min-max-viewport-width);
+    max-width: var(--min-max-viewport-width);
 }
 
 .main > .image-list {
-    min-width: 100vw;
-    max-width: 100vw;
+    min-width: var(--min-max-viewport-width);;
+    max-width: var(--min-max-viewport-width);;
 }
 
 img {
