@@ -53,10 +53,12 @@ const useImagesApiHandler = (page, searchText) => {
     const apiUrl = useBuildApiUrl(page, searchText);
     const fetchedImages = useFetchImages(apiUrl)
 
+    // When user searches for a new name, clear all old images fetches from array
     useEffect(() => {
         setImages([])
     }, [searchText])
 
+    // When new images fetched append to the existing array
     useEffect(() => {
         setImages((prev) => {
             return [...prev, ...fetchedImages]
