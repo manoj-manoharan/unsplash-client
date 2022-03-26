@@ -1,8 +1,12 @@
+import {get} from "lodash";
 
 const ImageCard = ({ image }) => {
     return (
         <>
-            <img src={image.urls.regular}  alt={image.urls.alt_description}/>
+            <img
+                src={get(image, 'urls.regular', "")}
+                alt={get(image, 'urls.alt_description', "Image")}
+            />
         </>
     );
 }
