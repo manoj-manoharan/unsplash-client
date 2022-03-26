@@ -1,3 +1,7 @@
+:root {
+    --min-max-viewport-width : 100vw;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -29,38 +33,38 @@ img {
     object-fit: scale-down;
 }
 
-@media (min-width: 25rem) {
-    .main > input {
-        max-width: 25rem;
-        min-width: 25rem;
-    }
+/*@media (min-width: 25rem) {*/
+/*    .main > input {*/
+/*        max-width: 25rem;*/
+/*        min-width: 25rem;*/
+/*    }*/
 
-    .main > .image-list {
-        max-width: 25rem;
-        min-width: 25rem;
-    }
-}
+/*    .main > .image-list {*/
+/*        max-width: 25rem;*/
+/*        min-width: 25rem;*/
+/*    }*/
+/*}*/
 
-@media (min-width: 50rem) {
-    .main > input {
-        max-width: 50rem;
-        min-width: 50rem;
-    }
+/*@media (min-width: 50rem) {*/
+/*    .main > input {*/
+/*        max-width: 50rem;*/
+/*        min-width: 50rem;*/
+/*    }*/
 
-    .main > .image-list {
-        max-width: 50rem;
-        min-width: 50rem;
-    }
-}
+/*    .main > .image-list {*/
+/*        max-width: 50rem;*/
+/*        min-width: 50rem;*/
+/*    }*/
+/*}*/
 
-@media (min-width: 75rem) {
-    .main > input {
-        max-width: 75rem;
-        min-width: 75rem;
-    }
+/*@media (min-width: 75rem) {*/
+/*    .main > input {*/
+/*        max-width: 75rem;*/
+/*        min-width: 75rem;*/
+/*    }*/
 
-    .main > .image-list {
-        max-width: 75rem;
-        min-width: 75rem;
-    }
-}
+/*    .main > .image-list {*/
+/*        max-width: 75rem;*/
+/*        min-width: 75rem;*/
+/*    }*/
+/*}*/
