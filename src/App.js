@@ -6,7 +6,7 @@ import {useCallback, useEffect, useState} from "react";
 import ImageCard from "./components/ImageCard";
 
 
-export default function Unsplash() {
+export default function App() {
 
     const [page, setPage] = useState(1);
     const [searchText, setSearchText] = useState("");
