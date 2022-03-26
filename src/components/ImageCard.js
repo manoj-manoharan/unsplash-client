@@ -2,7 +2,7 @@
 const ImageCard = ({ image }) => {
     return (
         <>
-            <img src={image.urls.small}  alt={image.urls.alt_description}/>
+            <img src={image.urls.regular}  alt={image.urls.alt_description}/>
         </>
     );
 }
